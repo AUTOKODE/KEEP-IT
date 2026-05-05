@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KEEP IT — Nos Offres</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ROOT — DARK MODE (défaut)
+   ============================================================ */
+:root {
+  --bg:         #09151f;
+  --bg-card:    #0f1f2e;
+  --bg-card2:   #142333;
+  --blue:       #3a8fd4;
+  --blue-hi:    #56b0f7;
+  --blue-glow:  rgba(58,143,212,0.16);
+  --teal:       #4ecdc4;
+  --gold:       #f5c842;
+  --white:      #eef4fb;
+  --muted:      rgba(238,244,251,0.55);
+  --faint:      rgba(238,244,251,0.08);
+  --border:     rgba(238,244,251,0.09);
+  --border-hi:  rgba(58,143,212,0.4);
+  --shadow-card: 0 8px 40px rgba(0,0,0,0.35);
+  --nav-bg:     rgba(9,21,31,0.88);
+}
+
+/* ============================================================
+   ROOT — LIGHT MODE
+   ============================================================ */
+.lm {
+  --bg:         #f0f5fa;
+  --bg-card:    #ffffff;
+  --bg-card2:   #e8f0f8;
+  --blue:       #1e6faa;
+  --blue-hi:    #1558a0;
+  --blue-glow:  rgba(30,111,170,0.10);
+  --teal:       #1a9e96;
+  --gold:       #a07000;
+  --white:      #0d1b2a;
+  --muted:      rgba(13,27,42,0.55);
+  --faint:      rgba(13,27,42,0.06);
+  --border:     rgba(13,27,42,0.11);
+  --border-hi:  rgba(30,111,170,0.35);
+  --shadow-card: 0 4px 28px rgba(13,27,42,0.10);
+  --nav-bg:     rgba(240,245,250,0.92);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--white);
+  min-height:100vh;
+  overflow-x:hidden;
+  transition:background .35s,color .35s;
+}
+
+/* ---- BACKGROUND ---- */
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 70% 45% at 15% 8%,  rgba(58,143,212,.10) 0%,transparent 60%),
+    radial-gradient(ellipse 55% 40% at 85% 82%,  rgba(78,205,196,.07) 0%,transparent 55%);
+  pointer-events:none;z-index:0;
+  transition:opacity .35s;
+}
+.lm body::before{opacity:.4;}
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(238,244,251,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(238,244,251,.025) 1px,transparent 1px);
+  background-size:52px 52px;
+  pointer-events:none;z-index:0;
+}
+section,header,footer,nav{position:relative;z-index:1;}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:1rem 2.5rem;
+  border-bottom:1px solid var(--border);
+  background:var(--nav-bg);
+  backdrop-filter:blur(14px);
+  position:sticky;top:0;z-index:200;
+  transition:background .35s,border-color .35s;
+}
+.logo img{height:34px;display:block;}
+.nav-links{display:flex;gap:.25rem;list-style:none;}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:.855rem;
+  letter-spacing:.02em;padding:.45rem .85rem;border-radius:7px;
+  transition:color .2s,background .2s;
+}
+.nav-links a:hover{color:var(--white);background:var(--faint);}
+.nav-links a.active{color:var(--white);background:var(--faint);}
+.nav-right{display:flex;align-items:center;gap:.75rem;}
+.nav-cta{
+  background:var(--blue);color:#fff !important;
+  padding:.5rem 1.2rem;border-radius:7px;font-weight:600;font-size:.855rem;
+  transition:background .2s,transform .15s;
+}
+.nav-cta:hover{background:var(--blue-hi) !important;transform:translateY(-1px);}
+
+/* ---- THEME TOGGLE ---- */
+#themeBtn{
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid var(--border);
+  background:var(--faint);color:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:1rem;
+  transition:background .2s,border-color .2s,transform .25s;
+  flex-shrink:0;
+}
+#themeBtn:hover{background:var(--blue-glow);border-color:var(--border-hi);transform:rotate(20deg);}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  text-align:center;padding:6rem 2rem 4rem;
+  max-width:820px;margin:0 auto;
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.72rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--blue-hi);
+  border:1px solid var(--border-hi);background:var(--blue-glow);
+  padding:.35rem 1rem;border-radius:100px;margin-bottom:1.75rem;
+  animation:fadeDown .6s ease both;
+}
+.hero h1{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2.2rem,5.5vw,3.8rem);
+  font-weight:800;line-height:1.1;letter-spacing:-.025em;
+  animation:fadeDown .6s ease .1s both;
+}
+.hero h1 em{font-style:normal;color:var(--blue-hi);}
+.hero p{
+  margin-top:1.25rem;font-size:1.05rem;
+  color:var(--muted);line-height:1.75;
+  animation:fadeDown .6s ease .2s both;
+}
+.guarantee-strip{
+  display:flex;align-items:center;justify-content:center;gap:.9rem;flex-wrap:wrap;
+  background:linear-gradient(135deg,rgba(245,200,66,.10),rgba(245,200,66,.04));
+  border:1px solid rgba(245,200,66,.28);
+  border-radius:12px;padding:.95rem 1.6rem;
+  max-width:640px;margin:2.5rem auto 0;
+  animation:fadeDown .6s ease .3s both;
+  font-size:.875rem;color:var(--muted);
+}
+.guarantee-strip .icon-shield{
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(245,200,66,.13);
+  display:flex;align-items:center;justify-content:center;font-size:.95rem;
+  flex-shrink:0;
+}
+.guarantee-strip strong{color:var(--gold);}
+
+/* ============================================================
+   TABS
+   ============================================================ */
+.tabs-wrap{
+  display:flex;justify-content:center;padding:0 2rem 0;
+  position:sticky;top:64px;z-index:100;
+}
+.tabs{
+  display:inline-flex;gap:.25rem;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:12px;padding:.35rem;
+  transition:background .35s,border-color .35s;
+}
+.tab{
+  padding:.55rem 1.35rem;border-radius:8px;
+  font-size:.84rem;font-weight:600;letter-spacing:.01em;
+  cursor:pointer;color:var(--muted);background:transparent;border:none;
+  transition:background .2s,color .2s;
+}
+.tab:hover{color:var(--white);}
+.tab.on{
+  background:var(--blue);color:#fff;
+  box-shadow:0 2px 12px rgba(58,143,212,.35);
+}
+
+/* ============================================================
+   SECTION PANELS
+   ============================================================ */
+.panel{display:none;animation:fadeUp .4s ease both;}
+.panel.on{display:block;}
+
+/* ============================================================
+   PRICING GRID
+   ============================================================ */
+.pricing{padding:3rem 2rem 5rem;max-width:1160px;margin:0 auto;}
+.offers-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1.25rem;align-items:start;
+}
+
+/* ---- CARD ---- */
+.card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:18px;padding:2rem;
+  display:flex;flex-direction:column;gap:1.2rem;
+  transition:transform .25s,border-color .25s,box-shadow .25s;
+  animation:fadeUp .5s ease both;
+  position:relative;
+  box-shadow:var(--shadow-card);
+}
+.card:hover{transform:translateY(-5px);border-color:var(--border-hi);}
+.card.best{
+  border-color:var(--blue);
+  box-shadow:0 0 0 1px var(--blue),var(--shadow-card),0 0 60px rgba(58,143,212,.12);
+}
+.card:nth-child(1){animation-delay:.05s;}
+.card:nth-child(2){animation-delay:.15s;}
+.card:nth-child(3){animation-delay:.25s;}
+
+.badge-top{
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  background:var(--blue);color:#fff;
+  font-size:.67rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;padding:.28rem 1rem;border-radius:100px;
+  white-space:nowrap;
+}
+
+.card-eyebrow{font-size:.67rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;}
+.card-eyebrow.c-blue{color:var(--blue-hi);}
+.card-eyebrow.c-teal{color:var(--teal);}
+.card-eyebrow.c-gold{color:var(--gold);}
+
+.card-title{
+  font-family:'Syne',sans-serif;
+  font-size:1.55rem;font-weight:800;letter-spacing:-.015em;
+}
+.card-desc{font-size:.865rem;color:var(--muted);line-height:1.6;margin-top:-.4rem;}
+
+hr.div{border:none;border-top:1px solid var(--border);}
+
+/* PRICE BLOCK */
+.price-block .amount{
+  font-family:'Syne',sans-serif;
+  font-size:2.5rem;font-weight:800;letter-spacing:-.02em;
+}
+.price-block .freq{font-size:.875rem;color:var(--muted);}
+.price-block .monthly{font-size:.82rem;color:var(--muted);margin-top:.15rem;}
+.price-block .setup{font-size:.78rem;color:var(--muted);margin-top:.2rem;}
+.price-block .setup.free{color:var(--teal);font-weight:500;}
+
+/* FEATURE ROWS */
+.f-section-label{
+  font-size:.67rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);
+}
+.features{display:flex;flex-direction:column;gap:.65rem;}
+.feat{
+  display:flex;align-items:flex-start;gap:.6rem;
+  font-size:.855rem;line-height:1.5;
+}
+.feat .dot{
+  width:17px;height:17px;flex-shrink:0;margin-top:2px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.6rem;font-weight:800;
+}
+.dot-ok{background:rgba(78,205,196,.18);color:var(--teal);}
+.dot-ok-b{background:rgba(86,176,247,.18);color:var(--blue-hi);}
+.dot-ok-g{background:rgba(245,200,66,.18);color:var(--gold);}
+.dot-no{background:rgba(238,244,251,.06);color:rgba(238,244,251,.25);}
+.feat .dim{color:rgba(238,244,251,.32);}
+.pill{
+  display:inline-block;font-size:.62rem;font-weight:700;
+  padding:.12rem .45rem;border-radius:4px;margin-left:.3rem;
+  vertical-align:middle;white-space:nowrap;
+}
+.pill-inc{background:rgba(78,205,196,.14);color:var(--teal);}
+.pill-opt{background:rgba(238,244,251,.07);color:var(--muted);}
+.pill-soon{background:rgba(245,200,66,.14);color:var(--gold);}
+
+/* CTA */
+.cta{
+  display:block;width:100%;padding:.9rem;text-align:center;
+  font-weight:700;font-size:.875rem;border-radius:9px;
+  text-decoration:none;cursor:pointer;
+  border:1px solid var(--border-hi);color:var(--white);
+  background:var(--faint);margin-top:auto;
+  transition:background .2s,border-color .2s,transform .15s;letter-spacing:.01em;
+}
+.cta:hover{background:rgba(238,244,251,.13);border-color:rgba(58,143,212,.65);transform:translateY(-1px);}
+.cta.primary{background:var(--blue);color:#fff;border-color:var(--blue);}
+.cta.primary:hover{background:var(--blue-hi);border-color:var(--blue-hi);}
+
+/* ============================================================
+   COMPARISON TABLE
+   ============================================================ */
+.compare-wrap{padding:0 2rem 4rem;max-width:1000px;margin:0 auto;}
+.compare-wrap h3{
+  font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:700;
+  margin-bottom:1.5rem;text-align:center;
+}
+.cmp-table{width:100%;border-collapse:collapse;}
+.cmp-table th,
+.cmp-table td{
+  padding:.75rem 1rem;font-size:.84rem;
+  border-bottom:1px solid var(--border);
+  text-align:center;vertical-align:middle;
+}
+.cmp-table thead th{
+  font-weight:700;font-size:.72rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);
+  padding-bottom:1rem;
+}
+.cmp-table thead th:first-child{text-align:left;}
+.cmp-table td:first-child{text-align:left;color:var(--muted);}
+.cmp-table tr:last-child td{border-bottom:none;}
+.cmp-table .yes{color:var(--teal);font-size:1rem;}
+.cmp-table .no{color:rgba(238,244,251,.22);font-size:1rem;}
+.cmp-table .val{font-weight:600;color:var(--white);font-size:.82rem;}
+.cmp-table .col-best{background:rgba(58,143,212,.06);}
+.lm .cmp-table .col-best{background:rgba(30,111,170,.06);}
+
+/* ============================================================
+   GUARANTEE SECTION
+   ============================================================ */
+.guarantee-section{
+  padding:0 2rem 5rem;max-width:720px;margin:0 auto;text-align:center;
+}
+.guarantee-box{
+  background:var(--bg-card);border:1px solid rgba(245,200,66,.25);
+  border-radius:18px;padding:2.5rem 2rem;
+  box-shadow:var(--shadow-card);
+}
+.g-shield{
+  width:60px;height:60px;
+  background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.3);
+  border-radius:15px;display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1.25rem;font-size:1.6rem;
+}
+.guarantee-box h2{
+  font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;
+  color:var(--gold);margin-bottom:.75rem;
+}
+.guarantee-box p{font-size:.9rem;color:var(--muted);line-height:1.8;}
+.guarantee-box strong{color:var(--white);}
+
+/* ============================================================
+   CONTACT SECTION
+   ============================================================ */
+.contact-section{
+  padding:3rem 2rem 5rem;max-width:960px;margin:0 auto;
+}
+.contact-section h2{
+  font-family:'Syne',sans-serif;font-size:1.75rem;font-weight:800;
+  letter-spacing:-.015em;margin-bottom:.5rem;text-align:center;
+}
+.contact-section .intro-text{
+  font-size:.9rem;color:var(--muted);line-height:1.7;
+  text-align:center;max-width:600px;margin:0 auto 2.5rem;
+}
+.contact-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.25rem;margin-bottom:3rem;
+}
+.contact-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:16px;padding:2rem 1.75rem;
+  transition:border-color .25s,box-shadow .25s,transform .25s;
+  animation:fadeUp .5s ease both;
+  box-shadow:var(--shadow-card);
+}
+.contact-card:nth-child(1){animation-delay:.05s;}
+.contact-card:nth-child(2){animation-delay:.15s;}
+.contact-card:nth-child(3){animation-delay:.25s;}
+.contact-card:hover{
+  border-color:var(--border-hi);
+  box-shadow:var(--shadow-card),0 0 32px rgba(58,143,212,.10);
+  transform:translateY(-3px);
+}
+.cc-role{
+  display:inline-block;
+  font-size:.67rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--blue-hi);
+  background:var(--blue-glow);border:1px solid var(--border-hi);
+  padding:.25rem .7rem;border-radius:100px;margin-bottom:1.1rem;
+}
+.cc-avatar{
+  width:54px;height:54px;border-radius:50%;
+  background:linear-gradient(135deg,var(--bg-card2),var(--blue-glow));
+  border:2px solid var(--border-hi);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;margin-bottom:1rem;
+}
+.cc-name{
+  font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;
+  margin-bottom:.5rem;
+}
+.cc-email{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.815rem;color:var(--blue-hi);text-decoration:none;
+  border:1px solid var(--border-hi);background:var(--blue-glow);
+  padding:.35rem .75rem;border-radius:7px;margin-top:.25rem;
+  transition:background .2s;word-break:break-all;
+}
+.cc-email:hover{background:rgba(58,143,212,.22);}
+.contact-note{
+  background:var(--bg-card2);border:1px solid var(--border);
+  border-radius:12px;padding:1.25rem 1.5rem;
+  font-size:.855rem;color:var(--muted);line-height:1.7;
+  text-align:center;
+}
+.contact-note strong{color:var(--white);}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{
+  border-top:1px solid var(--border);
+  padding:1.5rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+  font-size:.78rem;color:var(--muted);
+}
+footer img{height:26px;opacity:.75;}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeDown{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:640px){
+  nav{padding:.9rem 1.1rem;}
+  .nav-links{display:none;}
+  .hero{padding:4rem 1.25rem 2.5rem;}
+  .pricing{padding:2rem 1rem 3.5rem;}
+  .tabs-wrap{padding:0 1rem;}
+  .compare-wrap,.guarantee-section,.contact-section{padding-left:1rem;padding-right:1rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="topNav">
+  <div class="logo">
+    <img src="data:image/jpeg;base64,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" alt="KEEP IT">
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showTab('offres');return false;" id="tab-link-offres" class="active">Nos offres</a></li>
+    <li><a href="#" onclick="showTab('compare');return false;" id="tab-link-compare">Comparatif</a></li>
+    <li><a href="#" onclick="showTab('garantie');return false;" id="tab-link-garantie">Garantie</a></li>
+    <li><a href="#" onclick="showTab('contact');return false;" id="tab-link-contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button id="themeBtn" aria-label="Basculer mode sombre/clair">🌙</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <span class="eyebrow">🔐 Solution de cryptage professionnel</span>
+  <h1>Sécurisez vos données.<br><em>Simplement.</em></h1>
+  <p>KEEP IT développe pour vous une solution de cryptage symétrique sur mesure, multiplateforme, accompagnée d'un service complet adapté à votre organisation.</p>
+  <div class="guarantee-strip">
+    <div class="icon-shield">🛡</div>
+    <div><strong>Satisfait ou remboursé — 30 jours, sans discussion.</strong><br>Sur l'ensemble de nos offres, à compter de la livraison.</div>
+  </div>
+</header>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab on" onclick="showTab('offres')">📦 Nos offres</button>
+    <button class="tab"    onclick="showTab('compare')">⚖️ Comparatif</button>
+    <button class="tab"    onclick="showTab('garantie')">🛡 Garantie</button>
+    <button class="tab"    onclick="showTab('contact')">✉️ Contact</button>
+  </div>
+</div>
+
+<!-- ===== PANEL : OFFRES ===== -->
+<div class="panel on" id="panel-offres">
+<section class="pricing">
+  <div class="offers-grid">
+
+    <!-- ESSENTIEL -->
+    <div class="card">
+      <div class="card-eyebrow c-blue">Offre Essentiel</div>
+      <div class="card-title">Essentiel</div>
+      <div class="card-desc">Formation 100 % à distance, support email, mises à jour annuelles. Idéal pour une petite équipe qui maîtrise ses coûts.</div>
+      <hr class="div">
+      <div class="price-block">
+        <div><span class="amount">2 490 €</span> <span class="freq">HT / an</span></div>
+        <div class="monthly">soit ~207 € HT / mois</div>
+        <div class="setup">+ 490 € HT mise en place (unique)</div>
+      </div>
+      <hr class="div">
+      <div class="f-section-label">Formation — Visio uniquement</div>
+      <div class="features">
+        <div class="feat"><span class="dot dot-ok-b">✓</span><span>2 sessions visio / an (1 h chacune)<br><small style="color:var(--muted)">Créneaux fixes : 1er mardi du mois 14h–15h</small></span></div>
+        <div class="feat"><span class="dot dot-ok-b">✓</span><span>Notice PDF + vidéo tutoriel 3 min <span class="pill pill-inc">inclus</span></span></div>
+        <div class="feat"><span class="dot dot-no">✗</span><span class="dim">Formation sur site <span class="pill pill-opt">option +350 €</span></span></div>
+        <div class="feat"><span class="dot dot-no">✗</span><span class="dim">Espace formation en ligne</span></div>
+      </div>
+      <div class="f-section-label">Mises à jour</div>
+      <div class="features">
+        <div class="feat"><span class="dot dot-ok-b">✓</span><span>1 mise à jour majeure / an</span></div>
+        <div class="feat"><span class="dot dot-ok-b">✓</span><span>Correctifs critiques sous 72 h ouvrées</span></div>
+        <div class="feat"><span class="dot dot-no">✗</span><span class="dim">Pas de mises à jour intermédiaires</span></div>
+      </div>
+      <div class="f-section-label">Maintenance & SAV</div>
+      <div class="features">
+        <div class="feat"><span class="dot dot-ok-b">✓</span><span>Support e-mail — réponse &lt; 48 h</span></div>
+        <div class="feat"><span class="dot dot-no">✗</span><span class="dim">Pas de support téléphonique</span></div>
+        <div class="feat"><span class="dot dot-no">✗</span><span class="dim">Pas de rapport de sécurité</span></div>
+      </div>
+      <a href="#" onclick="showTab('contact');return false;" class="cta">Choisir Essentiel →</a>
+    </div>
+
+    <!-- PERFORMANCE -->
+    <div class="card best">
+      <div class="badge-top">⭐ Recommandé</div>
+      <div class="card-eyebrow c-teal">Offre Performance</div>
+      <div class="card-title">Performance</div>
+      <div class="card-desc">Le meilleur équilibre. Formation mixte visio & présentiel, mises à jour trimestrielles, hotline incluse.</div>
+      <hr class="div">
+      <div class="price-block">
+        <div><span class="amount">6 900 €</span> <span class="freq">HT / an</span></div>
+        <div class="monthly">soit ~575 € HT / mois</div>
+        <div class="setup">+ 990 € HT mise en place (unique)</div>
+      </div>
+      <hr class="div">
+      <div class="f-section-label">Formation — Visio + Sur site</div>
+      <div class="features">
+        <div class="feat"><span class="dot dot-ok">✓</span><span>1 session sur site / an (demi-journée)<br><small style="color:var(--muted)">IDF inclus — hors IDF +250 €</small></span></div>
+        <div class="feat"><span class="dot dot-ok">✓</span><span>4 sessions visio / an<br><small style="color:var(--muted)">Créneaux au choix, à planifier 72 h à l'avance</small></span></div>
+        <div class="feat"><span class="dot dot-ok">✓</span><span>Espace formation en ligne <span class="pill pill-inc">inclus</span></span></div>
+        <div class="feat"><span class="dot dot-ok">✓</span><span>Formation nouveaux arrivants (1/an)</span></div>
+      </div>
+      <div class="f-section-label">Mises à jour</div>
+      <div class="features">
+        <div class="feat"><span class="dot dot-ok">✓</span><span>Mises à jour <strong>trimestrielles</strong></span></div>
+        <div class="feat"><span class="dot dot-ok">✓</span><span>Correctifs critiques sous 24 h ouvrées</span></div>
+        <div class="feat"><span class="dot dot-ok">✓</span><span>Rapport mensuel de sécurité</span></div>
+      </div>
+      <div class="f-section-label">Maintenance & SAV</div>
+      <div class="features">
+        <div class="feat"><span class="dot dot-ok">✓</span><span>Hotline téléphonique lun–ven 9h–18h</span></div>
+        <div class="feat"><span class="dot dot-ok">✓</span><span>Support e-mail — réponse &lt; 4 h</span></div>
+        <div class="feat"><span class="dot dot-ok">✓</span><span>SLA de disponibilité 99 % garanti</span></div>
+      </div>
+      <a href="#" onclick="showTab('contact');return false;" class="cta primary">Choisir Performance →</a>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="card">
+      <div class="card-eyebrow c-gold">Offre Premium</div>
+      <div class="card-title">Premium</div>
+      <div class="card-desc">Accompagnement complet, interlocuteur dédié, mises à jour mensuelles, SLA contractuel et astreinte week-end.</div>
+      <hr class="div">
+      <div class="price-block">
+        <div><span class="amount">14 900 €</span> <span class="freq">HT / an</span></div>
+        <div class="monthly">soit ~1 242 € HT / mois</div>
+        <div class="setup free">✦ Mise en place offerte</div>
+      </div>
+      <hr class="div">
+      <div class="f-section-label">Formation — Présentiel prioritaire</div>
+      <div class="features">
+        <div class="feat"><span class="dot dot-ok-g">✓</span><span>Sessions sur site <strong>illimitées</strong><br><small style="color:var(--muted)">Planning convenu — déplacements France entière inclus</small></span></div>
+        <div class="feat"><span class="dot dot-ok-g">✓</span><span>Visio illimitées — créneaux à la demande</span></div>
+        <div class="feat"><span class="dot dot-ok-g">✓</span><span>Formation nouveaux arrivants illimitée</span></div>
+        <div class="feat"><span class="dot dot-ok-g">✓</span><span>Espace formation en ligne avancé</span></div>
+      </div>
+      <div class="f-section-label">Mises à jour</div>
+      <div class="features">
+        <div class="feat"><span class="dot dot-ok-g">✓</span><span>Mises à jour <strong>mensuelles</strong></span></div>
+        <div class="feat"><span class="dot dot-ok-g">✓</span><span>Correctifs critiques sous <strong>4 h ouvrées</strong></span></div>
+        <div class="feat"><span class="dot dot-ok-g">✓</span><span>Audit de sécurité trimestriel</span></div>
+      </div>
+      <div class="f-section-label">Maintenance & SAV</div>
+      <div class="features">
+        <div class="feat"><span class="dot dot-ok-g">✓</span><span>Interlocuteur dédié (chef de projet KEEP IT)</span></div>
+        <div class="feat"><span class="dot dot-ok-g">✓</span><span>Astreinte week-end sur incidents critiques</span></div>
+        <div class="feat"><span class="dot dot-ok-g">✓</span><span>SLA contractuel avec pénalités</span></div>
+        <div class="feat"><span class="dot dot-ok-g">✓</span><span>Rapport de sécurité hebdomadaire</span></div>
+      </div>
+      <a href="#" onclick="showTab('contact');return false;" class="cta">Choisir Premium →</a>
+    </div>
+
+  </div>
+</section>
+</div>
+
+<!-- ===== PANEL : COMPARATIF ===== -->
+<div class="panel" id="panel-compare">
+<div class="compare-wrap" style="padding-top:3rem;">
+  <h3>Comparatif détaillé des offres</h3>
+  <div style="overflow-x:auto;">
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th style="width:40%">Critère</th>
+        <th>Essentiel<br><small>2 490 € HT/an</small></th>
+        <th class="col-best">Performance<br><small>6 900 € HT/an</small></th>
+        <th>Premium<br><small>14 900 € HT/an</small></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="4" style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:1.25rem;">Formation</td></tr>
+      <tr><td>Sessions de formation visio / an</td><td class="val">2 sessions</td><td class="col-best val">4 sessions</td><td class="val">Illimitées</td></tr>
+      <tr><td>Formation sur site</td><td class="no">✗</td><td class="col-best val">1 / an (option France)</td><td class="val">Illimitées — France entière</td></tr>
+      <tr><td>Créneaux de visio</td><td class="val">Fixes (1er mardi 14h)</td><td class="col-best val">Flexibles (72 h préavis)</td><td class="val">À la demande</td></tr>
+      <tr><td>Espace formation en ligne</td><td class="no">✗</td><td class="col-best yes">✓</td><td class="yes">✓ (avancé)</td></tr>
+      <tr><td>Formation nouveaux arrivants</td><td class="no">✗</td><td class="col-best val">1 / an</td><td class="val">Illimitée</td></tr>
+      <tr><td colspan="4" style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:1.25rem;">Mises à jour</td></tr>
+      <tr><td>Fréquence des mises à jour</td><td class="val">1 / an</td><td class="col-best val">Trimestrielle</td><td class="val">Mensuelle</td></tr>
+      <tr><td>Correctifs de sécurité critiques</td><td class="val">72 h ouvrées</td><td class="col-best val">24 h ouvrées</td><td class="val">4 h ouvrées</td></tr>
+      <tr><td>Rapport de sécurité</td><td class="no">✗</td><td class="col-best val">Mensuel</td><td class="val">Hebdomadaire</td></tr>
+      <tr><td>Audit de sécurité</td><td class="no">✗</td><td class="no col-best">✗</td><td class="val">Trimestriel</td></tr>
+      <tr><td colspan="4" style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:1.25rem;">Support & SAV</td></tr>
+      <tr><td>Support e-mail</td><td class="val">48 h</td><td class="col-best val">&lt; 4 h</td><td class="val">&lt; 2 h</td></tr>
+      <tr><td>Hotline téléphonique</td><td class="no">✗</td><td class="col-best val">Lun–ven 9h–18h</td><td class="val">7j/7 (astreinte WE)</td></tr>
+      <tr><td>Interlocuteur dédié</td><td class="no">✗</td><td class="no col-best">✗</td><td class="yes">✓</td></tr>
+      <tr><td>SLA contractuel</td><td class="no">✗</td><td class="col-best val">99 % disponibilité</td><td class="val">Contractuel + pénalités</td></tr>
+      <tr><td>Astreinte week-end</td><td class="no">✗</td><td class="no col-best">✗</td><td class="yes">✓</td></tr>
+      <tr><td colspan="4" style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:1.25rem;">Tarifs</td></tr>
+      <tr><td>Mise en place (unique)</td><td class="val">490 € HT</td><td class="col-best val">990 € HT</td><td class="val" style="color:var(--teal);">Offerte</td></tr>
+      <tr><td style="padding-bottom:1.5rem;"></td>
+        <td><a href="#" onclick="showTab('contact');return false;" class="cta" style="margin-top:.5rem;">Choisir →</a></td>
+        <td class="col-best"><a href="#" onclick="showTab('contact');return false;" class="cta primary" style="margin-top:.5rem;">Choisir →</a></td>
+        <td><a href="#" onclick="showTab('contact');return false;" class="cta" style="margin-top:.5rem;">Choisir →</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+</div>
+
+<!-- ===== PANEL : GARANTIE ===== -->
+<div class="panel" id="panel-garantie">
+<section class="guarantee-section" style="padding-top:3rem;">
+  <div class="guarantee-box">
+    <div class="g-shield">🛡</div>
+    <h2>Satisfait ou remboursé — sans discussion</h2>
+    <p>
+      Nous sommes convaincus de la qualité de notre solution KEEP IT.<br><br>
+      C'est pourquoi <strong>toutes nos offres</strong> sont couvertes par une <strong>garantie de remboursement intégrale pendant 30 jours</strong> à compter de la livraison de votre solution.<br><br>
+      Si vous n'êtes pas entièrement satisfait pour quelque raison que ce soit — sans justification, sans délai, sans condition — nous vous remboursons l'intégralité des sommes versées.<br><br>
+      Cette garantie s'applique à toutes les offres : Essentiel, Performance et Premium.
+    </p>
+  </div>
+</section>
+</div>
+
+<!-- ===== PANEL : CONTACT ===== -->
+<div class="panel" id="panel-contact">
+<section class="contact-section">
+  <h2>Nous <em style="font-style:normal;color:var(--blue-hi)">contacter</em></h2>
+  <p class="intro-text">Pour toute information relative à cet appel d'offres, veuillez contacter directement le bon interlocuteur ci-dessous.</p>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="cc-role">Dirigeant</div>
+      <div class="cc-avatar">👔</div>
+      <div class="cc-name">Mohamed TOBJI</div>
+      <a href="mailto:dirigeant.ciel@lycee-jeanrostand.fr" class="cc-email">
+        ✉ dirigeant.ciel@lycee-jeanrostand.fr
+      </a>
+    </div>
+    <div class="contact-card">
+      <div class="cc-role">Équipe commerciale</div>
+      <div class="cc-avatar">🤝</div>
+      <div class="cc-name">Mohamed MADANI</div>
+      <a href="mailto:commercial.ciel@lycee-jeanrostand.fr" class="cc-email">
+        ✉ commercial.ciel@lycee-jeanrostand.fr
+      </a>
+    </div>
+    <div class="contact-card">
+      <div class="cc-role">Équipe technique</div>
+      <div class="cc-avatar">⚙️</div>
+      <div class="cc-name">Djamel BENNOUR</div>
+      <a href="mailto:technique.ciel@lycee-jeanrostand.fr" class="cc-email">
+        ✉ technique.ciel@lycee-jeanrostand.fr
+      </a>
+    </div>
+  </div>
+  <div class="contact-note">
+    <strong>Délai de réponse garanti sous 48 h ouvrées.</strong><br>
+    Pour les demandes urgentes, précisez l'offre concernée et votre disponibilité dans votre message.
+  </div>
+</section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <img src="data:image/jpeg;base64,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" alt="KEEP IT">
+  <span>© 2025 KEEP IT — Solution de cryptage professionnel</span>
+  <span>Données hébergées en France · Entreprise certifiée</span>
+</footer>
+
+<script>
+// ---- TABS ----
+function showTab(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const panel = document.getElementById('panel-' + name);
+  if (panel) panel.classList.add('on');
+  const tabs = document.querySelectorAll('.tab');
+  const map = {'offres':0,'compare':1,'garantie':2,'contact':3};
+  if (tabs[map[name]]) tabs[map[name]].classList.add('on');
+  const navLink = document.getElementById('tab-link-' + name);
+  if (navLink) navLink.classList.add('active');
+
+  // Scroll jusqu'à la barre d'onglets sans remonter tout en haut
+  const tabBar = document.querySelector('.tabs');
+  if (tabBar) {
+    const navHeight = document.querySelector('nav') ? document.querySelector('nav').offsetHeight : 0;
+    const top = tabBar.getBoundingClientRect().top + window.pageYOffset - navHeight;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+}
+
+// ---- LIGHT MODE ----
+document.getElementById('toggle-lm').addEventListener('click', () => {
+  document.documentElement.classList.toggle('lm');
+});
+</script>
+</body>
+</html>
